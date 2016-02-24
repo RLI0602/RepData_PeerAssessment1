@@ -8,7 +8,7 @@ output:
 
 ## Loading and preprocessing the data
 1. Load the Data 
-activity <- read.csv(file = "C:/Users/rli/Documents/activity.csv")
+...activity <- read.csv(file = "C:/Users/rli/Documents/activity.csv")...
 2 Process the data into a format suitable for the analysis
 library(reshape2)
 actMeltDate <- melt(activity, id.vars="date", measure.vars="steps", na.rm=FALSE)
