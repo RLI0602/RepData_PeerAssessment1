@@ -29,12 +29,15 @@ total.steps <- tapply(activity$steps, activity$date, FUN=sum, na.rm=TRUE)
 plot(actCastDate$date, actCastDate$steps, type="h", main="Histogram of Daily Steps", xlab="Date", ylab="Steps per Day", col="blue", lwd=8)
 abline(h=mean(actCastDate$steps, na.rm=TRUE), col="red", lwd=2)
 ```
+Please refer to 1.PNG
+
 3. Calculate and report the mean and median of the total number of steps taken per day
 ```
 mean(total.steps, na.rm=TRUE)
 median(total.steps, na.rm=TRUE)
 ```
-
+## [1] "Mean Steps per Day = 10766.1886792453"
+## [1] "Median Steps per Day = 10765"
 
 
 ## What is the average daily activity pattern?
@@ -47,11 +50,13 @@ geom_line()+
 xlab("5-minute interval") +
 ylab("average number of steps taken")
 ```
+Please refer to 2.PNG
+
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps
 ```
 averages[which.max(averages$steps),]
 ```
-
+## [1] "Interval with max value = 835"
 
 
 ## Imputing missing values
@@ -61,6 +66,8 @@ missing <-is.na(activity$steps)
 table(missing)
 ```
 Devise a strategy for filling in all of the missing values in the dataset and Create a new dataset that is equal to the original dataset but with the missing data filled in
+
+Strategy description:  Since there are a considerable number of missing/NA values (2,304), I will replace NAs with the mean for the particular interval number. For example: if the average number of steps taken during interval x is y, I will replace each NA with the corresponding y value for that row. I will then recalculate the steps per day to see how much it differs from the original result (with NAs included).
 ```
 stepsPerInt <- actCastInt
 actNoNA <- activity
@@ -75,6 +82,7 @@ actCastDateNoNA <- dcast(actMeltDateNoNA, date ~ variable, sum)
 plot(actCastDateNoNA$date, actCastDateNoNA$steps, type="h", main="Histogram of Daily Steps (Imputted NA Values)", xlab="Date", ylab="Steps", col="gray", lwd=8)
 abline(h=mean(actCastDateNoNA$steps), col="red", lwd=2)
 ```
+Please refer to 3.PNG
 
 ## Are there differences in activity patterns between weekdays and weekends?
 Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day
@@ -98,5 +106,5 @@ library(ggplot2)
 ggplot(averages, aes(interval, steps)) + geom_line() + facet_grid(day ~ .) +
 xlab("5-minute interval") + ylab("Number of steps")
 ```
-
+Please refer to 4.PNG
 
